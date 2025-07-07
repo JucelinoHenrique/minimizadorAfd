@@ -1,0 +1,52 @@
+
+
+# Autômato do livro do Sipser que usamos como exemplo principal.
+alfabeto:a,b
+estados:q0,q1,q2,q3,q4
+inicial:q0
+finais:q2,q4
+transicoes
+q0,q1,a
+q0,q2,b
+q1,q1,a
+q1,q2,b
+q2,q3,a
+q2,q4,b
+q3,q1,a
+q3,q2,b
+q4,q3,a
+q4,q4,b
+
+
+# Este AFD aceita strings que terminam com "bb".
+# Ele já é mínimo e não pode ser reduzido.
+alfabeto:a,b
+estados:q0,q1,q2
+inicial:q0
+finais:q2
+transicoes
+q0,q0,a
+q0,q1,b
+q1,q0,a
+q1,q2,b
+q2,q0,a
+q2,q2,b
+
+
+# Este AFD tem estados (q3, q4) que são inalcançáveis a partir de q0.
+alfabeto:a,b
+estados:q0,q1,q2,q3,q4
+inicial:q0
+finais:q1
+transicoes
+q0,q1,a
+q0,q2,b
+q1,q1,a
+q1,q2,b
+q2,q2,a
+q2,q1,b
+# Transições para os estados inalcançáveis
+q3,q4,a
+q3,q3,b
+q4,q3,a
+q4,q4,b

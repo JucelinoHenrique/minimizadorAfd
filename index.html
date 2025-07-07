@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Minimizador de AFD</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@500;600;700&family=Fira+Code&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <h1>Minimizador de AFD</h1>
+    
+    <textarea id="afdInput" rows="12" cols="70" placeholder="Cole a definição do seu AFD aqui..."></textarea>
+    
+    <button id="minimizeBtn">Minimizar</button>
+
+    <div class="container">
+        <div class="diagrama">
+            <h2>AFD Original</h2>
+            <div class="mermaid" id="original"></div>
+        </div>
+        <div class="diagrama">
+            <h2>AFD Minimizado</h2>
+            <div class="mermaid" id="minimizado"></div>
+        </div>
+    </div>
+</body>
+</html>
