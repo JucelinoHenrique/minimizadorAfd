@@ -71,6 +71,3 @@ q1,q0,a
 q1,q2,b
 q2,q0,a
 q2,q2,b
-
-👨‍💻 Autor
-[Seu Nome Aqui] - seu.email@exemplo.com
