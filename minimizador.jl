@@ -22,31 +22,46 @@ end
 # Converte o texto de entrada em um objeto AFD, validando o formato (sintaxe).
 function ler_afd_de_string(conteudo::String)
     if isempty(strip(conteudo)); return "Erro: O texto de entrada está vazio."; end
+
+    # inicialização de todas as nossas variaveis 
     alfabeto = Set{String}(); estados = Set{String}(); inicial = ""; finais = Set{String}();
     transicoes = Dict{Tuple{String, String}, String}(); modo_transicao = false
     definicoes_encontradas = Set{String}()
 
     for (i, linha_bruta) in enumerate(split(conteudo, '\n'))
+
+        # Remove os espaços vazios e remove comentarios 
         linha = strip(split(linha_bruta, '#')[1])
+
         if isempty(linha); continue; end
 
+        # verifica se a linha começa com transicoes - so no final do texto
         if startswith(linha, "transicoes")
             if modo_transicao; return "Erro na linha $i: A seção 'transicoes' foi definida mais de uma vez."; end
             modo_transicao = true; push!(definicoes_encontradas, "transicoes"); continue
         end
 
         if !modo_transicao
+
             partes_def = split(linha, ':', limit=2)
+
+            # verificar se está com o formato de correto 
             if length(partes_def) != 2; return "Erro de formato na linha $i: '$linha_bruta'. Esperava 'chave:valor'."; end
+
             chave, valor = strip.(partes_def)
+
             if isempty(valor); return "Erro na linha $i: A definição para '$chave' não pode ser vazia."; end
             
+            # faz um filtro do texto e verifica se há espaços vazios 
             valores_split = filter!(!isempty, strip.(split(valor, ',')))
 
+            # verifica qual é o tipo de chave e faz a união com as variaveis 
             if chave == "alfabeto"; union!(alfabeto, valores_split);
             elseif chave == "estados"; union!(estados, valores_split);
             elseif chave == "inicial"; inicial = valor;
             elseif chave == "finais"; union!(finais, valores_split);
+
+            # caso não a chave não for conhecida     
             else; return "Erro na linha $i: Chave desconhecida '$chave'."; end
             push!(definicoes_encontradas, chave)
         else
@@ -66,8 +81,12 @@ end
 # Valida a lógica interna do AFD (semântica).
 function validar_afd(afd::AFD)
     if !(afd.inicial in afd.estados); return "Erro de Validade: O estado inicial '$(afd.inicial)' não está no conjunto de estados."; end
-    for f in afd.finais; if !(f in afd.estados); return "Erro de Validade: O estado final '$f' não está no conjunto de estados."; end; end
+    for f in afd.finais; 
+        if !(f in afd.estados); return "Erro de Validade: O estado final '$f' não está no conjunto de estados."; end; 
+    end
+    # Para cada estado vai ser feito uma verificação se ele existe dentro das transicoes
     for estado in afd.estados, simbolo in afd.alfabeto
+        #verificação dentro do nossos estados 
         if !haskey(afd.transicoes, (estado, simbolo)); return "Erro de Validade: A transição para ('$estado', '$simbolo') não está definida."; end
     end
     return "AFD válido."
@@ -93,10 +112,13 @@ end
 
 # Orquestra o processo de minimização aplicando os princípios de Myhill-Nerode.
 function minimizar_afd(afd::AFD)
-    # Pré-processamento para garantir a corretude.
+    # Pré-processamento para garantir.
     afd_alcancavel = remover_estados_inalcancaveis(afd)
     validacao = validar_afd(afd_alcancavel)
+
+    #verifica se o afd não começa com AFD VALIDO 
     if !startswith(validacao, "AFD válido."); return validacao, nothing; end
+    #verifica se é possivel minimizar o afd 
     if length(afd_alcancavel.estados) <= 1; return "AFD já é mínimo.", afd_alcancavel; end
 
     # --- Início do Algoritmo de Refinamento de Partições (Hopcroft) ---
@@ -110,6 +132,7 @@ function minimizar_afd(afd::AFD)
     
     # Passo 2 (Indução): Refina as partições iterativamente até não haver mais mudanças.
     while !isempty(pendentes)
+
         P = popfirst!(pendentes) # Pega uma partição para tentar dividi-la.
         
         for simbolo in afd_alcancavel.alfabeto # Testa a divisão para cada símbolo.
@@ -119,7 +142,8 @@ function minimizar_afd(afd::AFD)
                 alvo = afd_alcancavel.transicoes[(s, simbolo)]
                 particao_alvo = nothing
                 for p_i in particoes; if alvo in p_i; particao_alvo = p_i; break; end; end
-                if !haskey(destinos, particao_alvo); destinos[particao_alvo] = Set(); end
+                if !haskey(destinos, particao_alvo); 
+                    destinos[particao_alvo] = Set(); end
                 push!(destinos[particao_alvo], s)
             end
 

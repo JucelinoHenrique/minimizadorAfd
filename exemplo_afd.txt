@@ -20,7 +20,7 @@ q4,q4,b
 
 # Este AFD aceita strings que terminam com "bb".
 # Ele já é mínimo e não pode ser reduzido.
-alfabeto:a,b
+alfabeto: a,b
 estados:q0,q1,q2
 inicial:q0
 finais:q2
