@@ -1,9 +1,8 @@
-/* --- Variáveis Globais de Design (CSS Variables) --- */
-/* Usar variáveis torna muito fácil mudar o tema do site depois. */
+/* Define variáveis de cores e fontes para facilitar a manutenção do tema */
 :root {
     --cor-fundo: #f4f7f9;
     --cor-card: #ffffff;
-    --cor-primaria: #5c67f2; /* Um azul/roxo moderno */
+    --cor-primaria: #5c67f2;
     --cor-primaria-hover: #4a54c9;
     --cor-texto-titulo: #1e2a3b;
     --cor-texto-corpo: #485563;
@@ -14,13 +13,8 @@
     --fonte-codigo: 'Fira Code', monospace;
 }
 
-/* --- Reset e Estilos Globais --- */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
+/* Reset básico e estilos globais do corpo da página */
+* { box-sizing: border-box; margin: 0; padding: 0; }
 body { 
     font-family: var(--fonte-corpo);
     background-color: var(--cor-fundo);
@@ -32,105 +26,48 @@ body {
     padding: 40px 20px;
 }
 
-/* --- Tipografia --- */
-h1, h2 {
-    font-family: var(--fonte-titulo);
-    color: var(--cor-texto-titulo);
-    font-weight: 600;
-    margin-bottom: 0.5em;
-}
+/* Estilos de Tipografia */
+h1, h2 { font-family: var(--fonte-titulo); color: var(--cor-texto-titulo); font-weight: 600; margin-bottom: 0.5em; }
+h1 { font-size: 2.5rem; color: var(--cor-primaria); margin-bottom: 25px; }
+h2 { font-size: 1.5rem; border-bottom: 2px solid var(--cor-borda); padding-bottom: 10px; margin-bottom: 20px; }
 
-h1 {
-    font-size: 2.5rem;
-    color: var(--cor-primaria);
-    margin-bottom: 25px;
-}
-
-h2 {
-    font-size: 1.5rem;
-    border-bottom: 2px solid var(--cor-borda);
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-}
-
-/* --- Elementos do Formulário --- */
+/* Estilos dos Elementos de Formulário */
 textarea { 
-    width: 100%;
-    max-width: 800px;
-    margin-bottom: 20px;
-    padding: 15px;
-    border: 1px solid var(--cor-borda);
-    border-radius: 8px;
-    font-family: var(--fonte-codigo);
-    font-size: 14px;
-    box-shadow: 0 2px 5px var(--cor-sombra);
+    width: 100%; max-width: 800px; margin-bottom: 20px; padding: 15px;
+    border: 1px solid var(--cor-borda); border-radius: 8px; font-family: var(--fonte-codigo);
+    font-size: 14px; box-shadow: 0 2px 5px var(--cor-sombra);
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
-
-textarea:focus {
-    outline: none;
-    border-color: var(--cor-primaria);
-    box-shadow: 0 0 0 3px rgba(92, 103, 242, 0.2); /* Efeito "glow" */
-}
+textarea:focus { outline: none; border-color: var(--cor-primaria); box-shadow: 0 0 0 3px rgba(92, 103, 242, 0.2); }
 
 button#minimizeBtn {
-    padding: 12px 30px;
-    font-size: 16px;
-    font-family: var(--fonte-titulo);
-    font-weight: 500;
-    cursor: pointer;
-    border: none;
-    background-color: var(--cor-primaria);
-    color: white;
-    border-radius: 8px;
-    margin-bottom: 40px;
-    box-shadow: 0 4px 10px rgba(92, 103, 242, 0.3);
+    padding: 12px 30px; font-size: 16px; font-family: var(--fonte-titulo); font-weight: 500;
+    cursor: pointer; border: none; background-color: var(--cor-primaria); color: white;
+    border-radius: 8px; margin-bottom: 40px; box-shadow: 0 4px 10px rgba(92, 103, 242, 0.3);
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
+button#minimizeBtn:hover { background-color: var(--cor-primaria-hover); transform: translateY(-2px); }
+button#minimizeBtn:disabled { background-color: #9fa6b2; cursor: not-allowed; transform: none; box-shadow: none; }
 
-button#minimizeBtn:hover {
-    background-color: var(--cor-primaria-hover);
-    transform: translateY(-2px); /* Efeito de elevação */
-}
-
-button#minimizeBtn:disabled {
-    background-color: #9fa6b2;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-}
-
-
-/* --- Layout dos Cards de Diagrama --- */
-.container { 
-    display: flex; 
-    justify-content: center; /* Centraliza se houver espaço */
-    flex-wrap: wrap; /* Permite que quebre a linha em telas menores */
-    width: 100%; 
-    max-width: 1400px;
-    gap: 30px;
-}
-
-.diagrama { 
-    background-color: var(--cor-card);
-    padding: 25px;
-    border-radius: 12px;
+/* Estilo para o Container do Log */
+.log-container {
+    width: 95%; max-width: 1200px; margin-bottom: 30px; background-color: var(--cor-card);
+    border: 1px solid var(--cor-borda); border-radius: 12px; padding: 25px;
     box-shadow: 0 10px 30px var(--cor-sombra);
-    width: 100%;
-    max-width: 650px; /* Limita a largura de cada card */
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.log-container pre {
+    font-family: var(--fonte-codigo); font-size: 13px; line-height: 1.6;
+    white-space: pre-wrap; word-wrap: break-word; color: #495057;
+    background-color: #f8f9fa; padding: 20px; border-radius: 8px;
+    max-height: 400px; overflow-y: auto;
 }
 
-.diagrama:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+/* Layout dos Cards de Diagrama */
+.container { display: flex; justify-content: center; flex-wrap: wrap; width: 100%; max-width: 1400px; gap: 30px; }
+.diagrama { 
+    background-color: var(--cor-card); padding: 25px; border-radius: 12px;
+    box-shadow: 0 10px 30px var(--cor-sombra); width: 100%; max-width: 650px;
+    text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
-/* Estilo para o placeholder do Mermaid */
-.mermaid {
-    min-height: 300px; /* Garante um espaço mínimo antes do diagrama carregar */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+.diagrama:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12); }
+.mermaid { min-height: 300px; display: flex; align-items: center; justify-content: center; }

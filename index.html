@@ -1,35 +1,57 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Minimizador de AFD</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@500;600;700&family=Fira+Code&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="style.css">
-    
+
+    <!-- Importa as fontes do Google Fonts para um visual mais profissional -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@500;600;700&family=Fira+Code&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Link para a folha de estilos externa -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Biblioteca Mermaid.js para renderizar os diagramas -->
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-    
+
+    <!-- Nosso script. 'defer' garante que ele só execute após o HTML ser carregado -->
     <script src="script.js" defer></script>
-</head>
-<body>
+  </head>
+  <body>
+    <!-- Título principal da aplicação -->
     <h1>Minimizador de AFD</h1>
-    
-    <textarea id="afdInput" rows="12" cols="70" placeholder="Cole a definição do seu AFD aqui..."></textarea>
-    
+
+    <!-- Área de texto para o usuário inserir a definição do autômato -->
+    <textarea
+      id="afdInput"
+      rows="12"
+      cols="70"
+      placeholder="Cole a definição do seu AFD aqui..."
+    ></textarea>
+
+    <!-- Botão que dispara a ação de minimizar -->
     <button id="minimizeBtn">Minimizar</button>
 
-    <div class="container">
-        <div class="diagrama">
-            <h2>AFD Original</h2>
-            <div class="mermaid" id="original"></div>
-        </div>
-        <div class="diagrama">
-            <h2>AFD Minimizado</h2>
-            <div class="mermaid" id="minimizado"></div>
-        </div>
+    <!-- Container para exibir o log do passo a passo (começa invisível) -->
+    <div id="logContainer" class="log-container" style="display: none">
+      <h2>Passo a Passo da Minimização</h2>
+      <pre id="logOutput"></pre>
     </div>
-</body>
+
+    <!-- Container principal que agrupa os dois diagramas lado a lado -->
+    <div class="container">
+      <div class="diagrama">
+        <h2>AFD Original</h2>
+        <div class="mermaid" id="original"></div>
+      </div>
+      <div class="diagrama">
+        <h2>AFD Minimizado</h2>
+        <div class="mermaid" id="minimizado"></div>
+      </div>
+    </div>
+  </body>
 </html>
