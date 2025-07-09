@@ -40,7 +40,9 @@ Ter o Julia instalado no seu sistema.
 Abra o terminal do Julia (REPL) e instale as bibliotecas HTTP e JSON:
 
 using Pkg
+
 Pkg.add("HTTP")
+
 Pkg.add("JSON")
 
 2. Iniciar o Servidor Backend
@@ -71,6 +73,3 @@ q1,q0,a
 q1,q2,b
 q2,q0,a
 q2,q2,b
-
-👨‍💻 Autor
-[Seu Nome Aqui] - seu.email@exemplo.com
